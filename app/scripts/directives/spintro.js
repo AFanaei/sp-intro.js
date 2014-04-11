@@ -16,11 +16,13 @@ app.directive('spIntro', function ($window,$document,$anchorScroll,$location) {
             scope.name='introjs-item-'+attrs.order;
             scope.show=false;
             scope.spDataPlasement=attrs['spDataPlasement'];
+            scope.pop={
+                left: 0,
+                top: 0
+            }
             if(!scope.spData){
-                console.log(attrs);
                 scope.spData=attrs['spData'];
             }
-            console.log(scope.spData);
             function showIntro(){
                 var elm = angular.element($document[0].querySelector("#intro-js-mover"));
                 if(elm.length==0){
@@ -39,15 +41,17 @@ app.directive('spIntro', function ($window,$document,$anchorScroll,$location) {
                     width:element[0].getBoundingClientRect().width+'px',
                     height:element[0].getBoundingClientRect().height+'px'
                 }
+                var popover = angular.element(element[0].querySelector(".popover"));
+                var rectPop = popover[0].getBoundingClientRect();
                 if(scope.spDataPlasement=='top'){
                     scope.pop={
                         left: pos.left,
-                        top: pos.top
+                        top: parseInt(pos.top)-rectPop.height+'px'
                     }
                 }else if(scope.spDataPlasement=="left"){
                     scope.pop={
                         top: pos.top,
-                        left: pos.left
+                        left: parseInt(pos.left)-rectPop.width+'px'
                     }
                 }else if(scope.spDataPlasement=="right"){
                     scope.pop={
@@ -77,6 +81,12 @@ app.directive('spIntro', function ($window,$document,$anchorScroll,$location) {
                 }
             }
 
+            angular.element($window).bind('resize', function() {
+                if(scope.current==attrs.order){
+                    showIntro();
+                    scope.$apply();
+                }
+            });
             scope.$watch('current',function(){
                 if(scope.current==attrs.order){
                     showIntro();

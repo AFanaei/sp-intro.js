@@ -96,3 +96,6 @@ body {
     z-index: 9999999 !important;
     position: relative;
 }
+.hiddenn {
+    visibility: hidden;
+}

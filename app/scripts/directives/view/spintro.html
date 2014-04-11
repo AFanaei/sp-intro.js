@@ -2,7 +2,7 @@
     <div ng-show="show" class="modal-backdrop fade in" style="z-index: 1040;"></div>
     <div ng-class="{'introjs-showElement': show}" ng-transclude>
     </div>
-    <div ng-show="show" class="popover fade in {{spDataPlasement}}" style="z-index: 9999999; display: block;" ng-style="{top:pop.top,left:pop.left}">
+    <div ng-class="{hiddenn:!show}" class="popover fade in {{spDataPlasement}}" style="z-index: 9999999; display: block;" ng-style="{bottom:pop.bottom,right:pop.right,top:pop.top,left:pop.left}">
         <div class="arrow"></div>
         <div class="popover-content">{{spData}}</div>
     </div>
